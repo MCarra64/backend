@@ -2,41 +2,44 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Products', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      code: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
-      fullName: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      password: {
-        type: Sequelize.STRING,
+      provider: Sequelize.STRING,
+      costPrice: {
+        type: Sequelize.FLOAT,
         allowNull: false
       },
-      role: {
-        type: Sequelize.ENUM('jefe', 'empleado'),
-        defaultValue: 'empleado'
+      salePrice: {
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
-      canAccessResumen: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      stock: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
-      canAccessControlPersonal: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+      categoryId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Categories',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       createdAt: {
         allowNull: false,
@@ -52,7 +55,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Products');
   }
 };
-// Este script crea la tabla 'Users' con campos para nombre de usuario, nombre completo, contraseña, rol, permisos de acceso y marcas de tiempo de creación y actualización.
+// Este script crea la tabla 'Products' con las columnas necesarias y establece una relación con la tabla 'Categories'.
