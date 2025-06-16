@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   Category.init({
     name: {
       type: DataTypes.STRING,
@@ -21,10 +22,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Category',
   });
 
-  Category.associate = (models) => {
-    Category.hasMany(models.Product, { foreignKey: 'categoryId', as: 'products' });
-  };
-  
   return Category;
 };
-// Este modelo define una categoría que puede tener múltiples productos asociados a ella.

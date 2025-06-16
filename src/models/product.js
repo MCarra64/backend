@@ -11,10 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsToMany(models.Tag, {
         through: 'ProductTags',
         as: 'tags',
-        foreignKey: 'productId'
+        foreignKey: 'productId',
+        otherKey: 'tagId'
+      });
+
+      Product.hasMany(models.DetalleVenta, {
+        foreignKey: 'productoId'
       });
     }
   }
+
   Product.init({
     code: {
       type: DataTypes.STRING,
@@ -51,11 +57,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Product',
   });
 
-  Product.associate = (models) => {
-    Product.belongsTo(models.Category, { foreignKey: 'categoryId', as: 'category' });
-    Product.belongsToMany(models.Tag, { through: 'ProductTags', foreignKey: 'productId', otherKey: 'tagId', as: 'tags' });
-  };
-
   return Product;
 };
-// Este modelo define un producto con campos para código, nombre, proveedor, precios, stock y una relación con la categoría a la que pertenece.

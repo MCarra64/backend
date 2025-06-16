@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       Tag.belongsToMany(models.Product, {
         through: 'ProductTags',
         as: 'products',
-        foreignKey: 'tagId'
+        foreignKey: 'tagId',
+        otherKey: 'productId'
       });
     }
   }
+
   Tag.init({
     name: {
       type: DataTypes.STRING,
@@ -21,10 +23,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Tag',
   });
 
-  Category.associate = (models) => {
-    Category.belongsToMany(models.Product, { through: 'ProductTags', foreignKey: 'tagId', otherKey: 'productId' });
-  };
-
   return Tag;
 };
-// Este modelo define una etiqueta que puede ser asociada a múltiples productos, permitiendo la clasificación o filtrado de productos por etiquetas.

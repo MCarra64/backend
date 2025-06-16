@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // Aquí se pueden definir relaciones con otros modelos si es necesario
+      User.hasMany(models.Venta, { foreignKey: 'empleadoId' });
     }
   }
 
@@ -34,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    canAddInventory: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    canAddSale: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -45,4 +53,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return User;
 };
-// Este modelo define un usuario con campos para nombre de usuario, nombre completo, contraseña, rol y permisos de acceso.

@@ -34,6 +34,14 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
+      canAddSale: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
+      canAddInventory: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       status: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
@@ -55,4 +63,3 @@ module.exports = {
     await queryInterface.dropTable('Users');
   }
 };
-// Este script crea la tabla 'Users' con campos para nombre de usuario, nombre completo, contraseña, rol, permisos de acceso y marcas de tiempo de creación y actualización.
