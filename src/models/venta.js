@@ -15,28 +15,29 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  Venta.init({
-    fecha: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
-    total: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
-    empleadoId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
+Venta.init({
+  fecha: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW
+  },
+  total: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  empleadoId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Users',
+      key: 'id'
     }
-  }, {
-    sequelize,
-    modelName: 'Venta',
-  });
+  }
+}, {
+  sequelize,
+  modelName: 'Venta',
+  tableName: 'ventas'
+});
 
   return Venta;
 };

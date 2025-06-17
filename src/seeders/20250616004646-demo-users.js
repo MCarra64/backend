@@ -6,7 +6,7 @@ module.exports = {
       {
         username: 'jefe1',
         fullName: 'Jefe Principal',
-        password: '1234',  // ¡IMPORTANTE! Esto es solo para prueba. En producción usar hash.
+        password: '123456',  // ¡IMPORTANTE! Esto es solo para prueba. En producción usar hash.
         role: 'jefe',
         canAccessResumen: true,
         canAccessControlPersonal: true,
@@ -19,7 +19,7 @@ module.exports = {
       {
         username: 'empleado1',
         fullName: 'Empleado Uno',
-        password: 'abcd',
+        password: 'abcdef',
         role: 'empleado',
         canAccessResumen: false,
         canAccessControlPersonal: false,

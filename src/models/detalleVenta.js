@@ -15,35 +15,36 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  DetalleVenta.init({
-    cantidad: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    precioUnitario: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
-    ventaId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Ventas',
-        key: 'id'
-      }
-    },
-    productoId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Products',
-        key: 'id'
-      }
+DetalleVenta.init({
+  cantidad: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  precioUnitario: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  ventaId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'ventas',
+      key: 'id'
     }
-  }, {
-    sequelize,
-    modelName: 'DetalleVenta',
-  });
+  },
+  productoId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'products',
+      key: 'id'
+    }
+  }
+}, {
+  sequelize,
+  modelName: 'DetalleVenta',
+  tableName: 'detalleventas'
+});
 
   return DetalleVenta;
 };
