@@ -82,7 +82,19 @@ const deleteUser = async (id) => {
 const login = async (username) => {
   try {
     const user = await User.findOne({
-      where: { username }
+      where: { username },
+      attributes: [
+        'id',
+        'username',
+        'fullName',
+        'password',
+        'role',
+        'canAccessResumen',
+        'canAccessControlPersonal',
+        'canAddSale',
+        'canAddInventory',
+        'status'
+      ]
     });
     return user;
   } catch (error) {

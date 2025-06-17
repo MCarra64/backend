@@ -25,6 +25,9 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const userData = req.body;
+
+    const salt = await bcrypt.genSalt(10);
+
     const user = await authAdapter.createUser(userData);
     res.status(201).json(user);
   } catch (error) {
