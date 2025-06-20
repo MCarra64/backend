@@ -36,11 +36,6 @@ app.use('/auth', authRoutes);
 const indexRouter = require('./src/routes/index');
 app.use('/', indexRouter);
 
-app.get('/products', async (req, res) => {
-  const products = await db.Product.findAll({ include: ['category'] });
-  res.json(products);
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -5,18 +5,27 @@ const getAllTags = async () => {
 };
 
 const getTagById = async (id) => {
+  if (!id) throw new Error('ID es requerido');
   return await tagRepository.getTagById(id);
 };
 
 const createTag = async (data) => {
-  return await tagRepository.createTag(data);
+  if (!data || !data.name || data.name.trim() === '') {
+    throw new Error('El nombre de la etiqueta es requerido');
+  }
+  return await tagRepository.createTag({ name: data.name.trim() });
 };
 
 const updateTag = async (id, data) => {
+  if (!id) throw new Error('ID es requerido');
+  if (data.name !== undefined && data.name.trim() === '') {
+    throw new Error('El nombre de la etiqueta no puede estar vacío');
+  }
   return await tagRepository.updateTag(id, data);
 };
 
 const deleteTag = async (id) => {
+  if (!id) throw new Error('ID es requerido');
   return await tagRepository.deleteTag(id);
 };
 

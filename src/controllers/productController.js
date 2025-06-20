@@ -1,4 +1,5 @@
 const productAdapter = require('../adapters/productAdapter');
+const db = require('../models');
 
 const getAllProducts = async (req, res) => {
   try {
@@ -98,6 +99,23 @@ const getProductTags = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const products = await db.Product.findAll({
+      where: { categoryId },
+      include: [
+        { model: db.Category, as: 'category' },
+        { model: db.Tag, as: 'tags' }
+      ]
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching products by category:', error);
+    res.status(500).json({ message: 'Internal server error for getProductsByCategory' });
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -106,5 +124,6 @@ module.exports = {
   deleteProduct,
   addTagToProduct,
   removeTagFromProduct,
-  getProductTags
+  getProductTags,
+  getProductsByCategory
 };

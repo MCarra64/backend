@@ -5,18 +5,30 @@ const Tag = db.Tag;
 
 const getAllProducts = async () => {
   return await Product.findAll({
+    attributes: ['id', 'name', 'stock', 'salePrice', 'costPrice', 'provider', 'categoryId'],
     include: [
       { model: Category, as: 'category' },
-      { model: Tag, as: 'tags' }
+      { 
+        model: Tag, 
+        as: 'tags',
+        attributes: ['id', 'name'],
+        through: { attributes: [] }
+      }
     ]
   });
 };
 
 const getProductById = async (id) => {
   return await Product.findByPk(id, {
+    attributes: ['id', 'name', 'stock', 'salePrice', 'costPrice', 'provider', 'categoryId'],
     include: [
       { model: Category, as: 'category' },
-      { model: Tag, as: 'tags' }
+      { 
+        model: Tag, 
+        as: 'tags',
+        attributes: ['id', 'name'],
+        through: { attributes: [] }
+      }
     ]
   });
 };
@@ -51,7 +63,14 @@ const removeTagFromProduct = async (productId, tagId) => {
 
 const getProductTags = async (productId) => {
   const product = await Product.findByPk(productId, {
-    include: [{ model: Tag, as: 'tags' }]
+    include: [
+      { 
+        model: Tag, 
+        as: 'tags',
+        attributes: ['id', 'name'],
+        through: { attributes: [] }
+      }
+    ]
   });
   return product ? product.tags : null;
 };

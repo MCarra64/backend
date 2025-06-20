@@ -10,5 +10,6 @@ router.delete('/:id', productController.deleteProduct);
 router.post('/:id/tags', productController.addTagToProduct);
 router.get('/:id/tags', productController.getProductTags);
 router.delete('/:id/tags/:tagId', productController.removeTagFromProduct);
+router.get('/by-category/:categoryId', productController.getProductsByCategory);
 
 module.exports = router;
