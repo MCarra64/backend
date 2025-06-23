@@ -1,5 +1,6 @@
 const productAdapter = require('../adapters/productAdapter');
 const db = require('../models');
+const Product = db.Product;
 
 const getAllProducts = async (req, res) => {
   try {
@@ -116,6 +117,38 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+const addStock = async (req, res) => {
+  try {
+    console.log('DEBUG -> Entró a addStock');
+    console.log('DEBUG -> req.params.id:', req.params.id);
+    console.log('DEBUG -> req.body:', req.body);
+
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
+      console.log('DEBUG -> Producto no encontrado');
+      return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+
+    const { quantityToAdd } = req.body;
+    console.log('DEBUG -> quantityToAdd:', quantityToAdd);
+
+    if (typeof quantityToAdd !== 'number' || quantityToAdd <= 0) {
+      console.log('DEBUG -> Cantidad inválida');
+      return res.status(400).json({ message: 'Cantidad inválida' });
+    }
+
+    product.stock += quantityToAdd;
+    await product.save();
+
+    console.log('DEBUG -> Stock actualizado:', product.stock);
+    res.json({ message: 'Stock actualizado', product });
+  } catch (err) {
+    console.error('DEBUG -> Error detallado:', err);
+    res.status(500).json({ message: 'Error interno del servidor', error: err.message });
+  }
+};
+
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -125,5 +158,6 @@ module.exports = {
   addTagToProduct,
   removeTagFromProduct,
   getProductTags,
-  getProductsByCategory
+  getProductsByCategory,
+  addStock
 };
