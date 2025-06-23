@@ -7,11 +7,14 @@ const User = db.User;
 const getAllVentas = async () => {
   return await Venta.findAll({
     include: [
-      { model: User, as: 'empleado' },
+      { model: User, as: 'empleado', required: false },
       {
         model: DetalleVenta,
         as: 'detalles',
-        include: [{ model: Product, as: 'product' }]
+        required: false,
+        include: [
+          { model: Product, as: 'producto', required: false }
+        ]
       }
     ]
   });

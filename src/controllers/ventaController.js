@@ -5,10 +5,11 @@ const getAllVentas = async (req, res) => {
     const ventas = await ventaAdapter.getAllVentas();
     res.status(200).json(ventas);
   } catch (error) {
-    console.error('Error fetching ventas:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('ERROR EN getAllVentas:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
+
 
 const getVentaById = async (req, res) => {
   try {
