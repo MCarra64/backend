@@ -18,6 +18,9 @@ db.sequelize.sync()
   });
 
 // Rutas
+const summaryRoutes = require('./src/routes/summary.routes');
+app.use('/api/summary', summaryRoutes);
+
 const tagRoutes = require('./src/routes/tag.routes');
 app.use('/tags', tagRoutes);
 
